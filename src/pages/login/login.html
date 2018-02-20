@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="bg-image">
 
   <ion-item>
         <ion-label floating>E-mail</ion-label>
@@ -25,9 +25,14 @@
   </ion-item>
 
   <button ion-button block type="submit" (click)="login(user)">Login</button>
-  <button ion-button block clear (click)="goToResetPassword()">Forgot Account?</button>
   <button ion-button block color="light" (click)="register()">Register</button>
   <button ion-button block color="danger" (click)="googleLogin()">Login with Google</button>
   <button ion-button block (click)="facebookLogin()">Login with Facebook</button>
 
 </ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar transparent position="bottom">
+    <button ion-button block clear color="secondary" (click)="goToResetPassword()"><b>Forgot Account?</b></button>
+  </ion-toolbar>
+</ion-footer>

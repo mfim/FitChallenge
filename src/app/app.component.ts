@@ -4,8 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
+//import { HomePage } from '../pages/home/home';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { TabsPage } from "../pages/tabs/tabs";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class MyApp {
     // this observer checks if the user is already logged in, changing the rootpage
     const authObserver = afAuth.authState.subscribe( user => {
       if(user){
-        this.rootPage = HomePage;
+        this.rootPage = TabsPage;
         authObserver.unsubscribe();
       } else {
         this.rootPage = LoginPage;

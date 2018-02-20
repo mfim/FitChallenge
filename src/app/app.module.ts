@@ -6,8 +6,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -19,16 +17,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { ResetPasswordPage } from "../pages/reset-password/reset-password";
 import { RegisterPage } from "../pages/register/register";
+import { MyGroupsPage } from "../pages/my-groups/my-groups";
+import { MyFriendsPage } from "../pages/my-friends/my-friends";
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     ResetPasswordPage,
     RegisterPage,
+    MyGroupsPage,
+    MyFriendsPage,
     LoginPage
   ],
   imports: [
@@ -40,12 +40,12 @@ import { RegisterPage } from "../pages/register/register";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     ResetPasswordPage,
     RegisterPage,
+    MyGroupsPage,
+    MyFriendsPage,
     LoginPage
   ],
   providers: [
