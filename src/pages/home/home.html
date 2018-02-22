@@ -5,6 +5,16 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-card *ngFor="let workout of workouts">
+      <ion-card-header> {{ workout.activityType }}</ion-card-header>
+      <ion-card-content>
+        <p>Date: {{ workout.startDate | date:'short' }}</p>
+        <p>Duration: {{ workout.duration / 100 }} min</p>
+        <p>Distance: {{ workout.distance / 1000 }} Km</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
   <ion-card>
     <img src="../assets/imgs/run.jpg"/>

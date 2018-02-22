@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { LoginPage } from "../login/login";
+//import { HealthDataProvider } from '../../providers/health-data/health-data';
 
 @Component({
   selector: 'page-home',
@@ -29,6 +30,8 @@ export class HomePage {
         }).present();
       }
     });
+
+    //this.healthData.saveWorkout();
   }
 
   // take a better look!

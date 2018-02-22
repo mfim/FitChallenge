@@ -8,7 +8,7 @@ import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
+//import { LoginPage } from '../pages/login/login';
 
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 
@@ -20,6 +20,9 @@ import { RegisterPage } from "../pages/register/register";
 import { MyGroupsPage } from "../pages/my-groups/my-groups";
 import { MyFriendsPage } from "../pages/my-friends/my-friends";
 
+import { Health } from '@ionic-native/health';
+import { HealthDataProvider } from '../providers/health-data/health-data';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,8 +31,8 @@ import { MyFriendsPage } from "../pages/my-friends/my-friends";
     ResetPasswordPage,
     RegisterPage,
     MyGroupsPage,
-    MyFriendsPage,
-    LoginPage
+    MyFriendsPage
+  //  LoginPage
   ],
   imports: [
     BrowserModule,
@@ -45,14 +48,16 @@ import { MyFriendsPage } from "../pages/my-friends/my-friends";
     ResetPasswordPage,
     RegisterPage,
     MyGroupsPage,
-    MyFriendsPage,
-    LoginPage
+    MyFriendsPage
+//    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    Health,
+    HealthDataProvider
   ]
 })
 export class AppModule {}
