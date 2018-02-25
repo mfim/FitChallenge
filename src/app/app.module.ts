@@ -22,6 +22,7 @@ import { MyFriendsPage } from "../pages/my-friends/my-friends";
 
 import { Health } from '@ionic-native/health';
 import { HealthDataProvider } from '../providers/health-data/health-data';
+import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { HealthDataProvider } from '../providers/health-data/health-data';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     Health,
-    HealthDataProvider
+    HealthDataProvider,
+    FirebaseDbProvider,
+    FirebaseDbProvider
   ]
 })
 export class AppModule {}

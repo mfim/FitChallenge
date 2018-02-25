@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Health } from '@ionic-native/health';
 import { Workout } from "../../models/workout";
-import { AuthProvider } from "../auth/auth";
-import firebase from 'firebase';
+import { FirebaseDbProvider } from "../firebase-db/firebase-db";
 
 @Injectable()
 export class HealthDataProvider {
@@ -11,7 +10,7 @@ export class HealthDataProvider {
   currentHeight: string;
   workouts = {};
 
-  constructor(private health: Health, private authData: AuthProvider) {
+  constructor(private health: Health, private firabaseData: FirebaseDbProvider) {
     this.requestAuth();
    }
 
@@ -74,18 +73,10 @@ export class HealthDataProvider {
        }
      }
 
-     this.uploadToFirebase(results);
+     this.firabaseData.saveWorkoutArray(results);
      // this will change!!!!
      return results;
    }
-
-   uploadToFirebase(workouts : Workout[]){
-     const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid()+`/workouts/`);
-     for(let workout of workouts){
-       activityRef.push(workout);
-     }
-   }
-
 
    // incomplete, need to implement saving the activity distance if "running or similar"..
    saveWorkout(){

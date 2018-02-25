@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
 import { Workout } from "../../models/workout";
-import { AuthProvider } from '../../providers/auth/auth';
-import firebase from 'firebase';
+import { FirebaseDbProvider } from "../../providers/firebase-db/firebase-db";
 
 /**
  * Generated class for the NewActivityPage page.
@@ -20,7 +19,7 @@ export class NewActivityPage {
 
   newWorkout: Workout[] = [];
 
-  constructor(private view: ViewController, private authData: AuthProvider) {
+  constructor(private view: ViewController, private firebaseData: FirebaseDbProvider) {
   }
 
   cancelNewActivity(){
@@ -28,9 +27,11 @@ export class NewActivityPage {
   }
 
   saveNewActivity(): void {
-    const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid());
 
-    activityRef.child("workouts").push(this.newWorkout);
+
+    //add a call to the health plugin
+    this.firebaseData.saveWorkout(this.newWorkout);
+
     this.view.dismiss();
   }
 

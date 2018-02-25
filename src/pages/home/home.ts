@@ -56,6 +56,8 @@ export class HomePage {
         }).present();
       }
     });
+    // not tested: in order to solve the first request not answering!
+    this.workouts = this.healthData.loadWorkoutData();
   }
 
   // take a better look!
