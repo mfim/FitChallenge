@@ -6,15 +6,23 @@
 
 <ion-content padding>
 
+  <ion-fab top right>
+    <button ion-fab icon-only mini><ion-icon name="add-circle"></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="newActivity()"><ion-icon name="body"></ion-icon></button>
+      <button ion-fab (click)="inviteActivity()"><ion-icon name="contacts"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
   <button ion-button (click)="loadWorkoutData()">Load Workouts</button>
-  <button ion-button (click)="saveWorkout()">Health</button>
-<!--
+
+<!--  <button ion-button (click)="saveWorkout()">Health</button>
+  <button ion-button (click)="saveHeight()">Height</button>
+
 <ion-item>
     <ion-label stacked>Set Height</ion-label>
     <ion-input type="text" [(ngModel)]="height" placeholder="My height today"></ion-input>
   </ion-item>
--->
-<!--
   <ion-item>
     <ion-label stacked>Current Height</ion-label>
     <ion-input type="text" [(ngModel)]="currentHeight" readonly></ion-input>
@@ -79,5 +87,4 @@
 
 
   <button ion-button (click)="logout()">Logout</button>
-  <!-- <button ion-button (click)="saveHeight()">Height</button> -->
 </ion-content>

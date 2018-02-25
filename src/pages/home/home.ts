@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController,ToastController, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { LoginPage } from "../login/login";
 import { HealthDataProvider } from '../../providers/health-data/health-data';
 import { Workout } from "../../models/workout";
+
 
 @Component({
   selector: 'page-home',
@@ -14,28 +15,35 @@ export class HomePage {
 
   currentHeight: string;
   height: string;
-  workouts = [];
+  workouts: Workout[] = [];
 
-  constructor(private healthData: HealthDataProvider, private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController) {
+  constructor(private healthData: HealthDataProvider, private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController, private modalCtrl: ModalController) {
   }
 
-  // test function 
+  // test function
   saveHeight(){
     this.healthData.saveHeight(this.height);
   }
-
+  // still a test, finish implementing
+  saveWorkout(){
+    this.healthData.saveWorkout();
+  }
 
   loadWorkoutData(){
+
+    // this will change! the query should not be made from here!
     this.workouts = this.healthData.loadWorkoutData();
   }
 
-  saveWorkout(){
-    this.healthData.saveWorkout();
+  newActivity(){
+    const newActivity = this.modalCtrl.create("NewActivityPage");
+    newActivity.present();
   }
 
   ionViewWillLoad(){
     this.afAuth.authState.subscribe(data => {
       if(data.email && data.uid){
+        this.authData.setUid(data.uid);
         this.toast.create({
           message: `Welcome to FitChallenge, ${data.email}` ,
           duration: 3000

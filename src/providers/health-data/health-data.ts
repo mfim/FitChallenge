@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Health } from '@ionic-native/health';
 import { Workout } from "../../models/workout";
+import { AuthProvider } from "../auth/auth";
+import firebase from 'firebase';
 
 @Injectable()
 export class HealthDataProvider {
@@ -9,14 +11,14 @@ export class HealthDataProvider {
   currentHeight: string;
   workouts = {};
 
-  constructor(private health: Health) {
+  constructor(private health: Health, private authData: AuthProvider) {
     this.requestAuth();
    }
 
   requestAuth(){
     this.health.isAvailable().then((available:boolean) =>{
       this.health.requestAuthorization([
-        'distance', 'activity', 'calories', 'height', 'steps', // leave only what's needed
+        'distance', 'activity', 'calories', // leave only what's needed
       ])
       .then(res => console.log(res))
       .catch(e => console.log(e));
@@ -38,6 +40,8 @@ export class HealthDataProvider {
     return this.workouts;
   }
 
+  // this will load the workout data from GoogleFit or Apple HealthKit
+  // return is made in an Workout array
    loadWorkoutData(){
      var workoutsIt = [];
      var results: Workout[] = [];
@@ -56,8 +60,8 @@ export class HealthDataProvider {
        if(workout.value != 'still' && workout.value != 'unknown' && (workout.endDate - workout.startDate > 8 * 60 * 1000)){
          var workout_sup: Workout = {
            activityName: workout.value,
-           startDate: workout.startDate,
-           endDate: workout.endDate,
+           startDate: workout.startDate.toString(),
+           //endDate: workout.endDate,
            duration: (workout.endDate - workout.startDate), // in miliseconds
          }
          if(workout.calories.length > 0){
@@ -69,9 +73,21 @@ export class HealthDataProvider {
          results.push(workout_sup);
        }
      }
+
+     this.uploadToFirebase(results);
+     // this will change!!!!
      return results;
    }
 
+   uploadToFirebase(workouts : Workout[]){
+     const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid()+`/workouts/`);
+     for(let workout of workouts){
+       activityRef.push(workout);
+     }
+   }
+
+
+   // incomplete, need to implement saving the activity distance if "running or similar"..
    saveWorkout(){
      this.health.store({
        startDate: new Date(new Date().getTime() - 15 * 60 * 1000), // change here!

@@ -32,7 +32,6 @@ import { HealthDataProvider } from '../providers/health-data/health-data';
     RegisterPage,
     MyGroupsPage,
     MyFriendsPage
-  //  LoginPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +48,6 @@ import { HealthDataProvider } from '../providers/health-data/health-data';
     RegisterPage,
     MyGroupsPage,
     MyFriendsPage
-//    LoginPage
   ],
   providers: [
     StatusBar,

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { User } from "../../models/user";
 
 @Injectable()
 export class AuthProvider {
+
+  private uid: string;
 
   constructor(public afAuth: AngularFireAuth){
   }
@@ -27,6 +29,14 @@ export class AuthProvider {
 
   async register(user: User){
     return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+  }
+
+  setUid(uid: string): void {
+   this.uid = uid;
+  }
+
+  getUid(): string {
+    return this.uid;
   }
 
   logout(){
