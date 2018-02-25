@@ -5,13 +5,38 @@
 </ion-header>
 
 <ion-content padding>
+
+  <button ion-button (click)="loadWorkoutData()">Load Workouts</button>
+  <button ion-button (click)="saveWorkout()">Health</button>
+<!--
+<ion-item>
+    <ion-label stacked>Set Height</ion-label>
+    <ion-input type="text" [(ngModel)]="height" placeholder="My height today"></ion-input>
+  </ion-item>
+-->
+<!--
+  <ion-item>
+    <ion-label stacked>Current Height</ion-label>
+    <ion-input type="text" [(ngModel)]="currentHeight" readonly></ion-input>
+  </ion-item> -->
+
+  <!-- <ion-item>
+    <ion-label stacked>Steps last 24h</ion-label>
+    <ion-input type="text" [(ngModel)]="healthData.stepCount" readonly></ion-input>
+  </ion-item> -->
+
   <ion-list>
     <ion-card *ngFor="let workout of workouts">
-      <ion-card-header> {{ workout.activityType }}</ion-card-header>
+      <ion-card-header> {{ workout.activityName }}</ion-card-header>
       <ion-card-content>
-        <p>Date: {{ workout.startDate | date:'short' }}</p>
-        <p>Duration: {{ workout.duration / 100 }} min</p>
-        <p>Distance: {{ workout.distance / 1000 }} Km</p>
+        <p>Date: {{ workout.startDate | date:'shortDate' }}</p>
+        <p>Duration: {{ workout.duration / (60 * 1000) }} Min</p>
+        <p *ngIf="workout.calories">
+          Calories: {{ workout.calories }} Kcal
+        </p>
+        <p *ngIf="workout.distance">
+          Distance:  {{ workout.distance / 1000 }} Km
+        </p>
       </ion-card-content>
     </ion-card>
   </ion-list>
@@ -54,5 +79,5 @@
 
 
   <button ion-button (click)="logout()">Logout</button>
-
+  <!-- <button ion-button (click)="saveHeight()">Height</button> -->
 </ion-content>

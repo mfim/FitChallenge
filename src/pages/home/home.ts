@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { LoginPage } from "../login/login";
-//import { HealthDataProvider } from '../../providers/health-data/health-data';
+import { HealthDataProvider } from '../../providers/health-data/health-data';
+import { Workout } from "../../models/workout";
 
 @Component({
   selector: 'page-home',
@@ -11,8 +12,25 @@ import { LoginPage } from "../login/login";
 })
 export class HomePage {
 
-  constructor(private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController) {
+  currentHeight: string;
+  height: string;
+  workouts = [];
 
+  constructor(private healthData: HealthDataProvider, private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController) {
+  }
+
+  // test function 
+  saveHeight(){
+    this.healthData.saveHeight(this.height);
+  }
+
+
+  loadWorkoutData(){
+    this.workouts = this.healthData.loadWorkoutData();
+  }
+
+  saveWorkout(){
+    this.healthData.saveWorkout();
   }
 
   ionViewWillLoad(){
@@ -30,8 +48,6 @@ export class HomePage {
         }).present();
       }
     });
-
-    //this.healthData.saveWorkout();
   }
 
   // take a better look!

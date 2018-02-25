@@ -89,9 +89,10 @@
         <variable name="APP_ID" value="214066202666778" />
         <variable name="APP_NAME" value="fitChallenge" />
     </plugin>
+    <allow-navigation href="http://192.168.17.102:8100" />
     <plugin name="cordova-plugin-health" spec="^1.0.4">
-        <variable name="HEALTH_READ_PERMISSION" value=" " />
-        <variable name="HEALTH_WRITE_PERMISSION" value=" " />
+        <variable name="HEALTH_READ_PERMISSION" value="App needs read access" />
+        <variable name="HEALTH_WRITE_PERMISSION" value="App needs write access" />
     </plugin>
     <engine name="ios" spec="~4.5.4" />
     <engine name="android" spec="~7.0.0" />
