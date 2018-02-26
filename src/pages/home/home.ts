@@ -24,17 +24,9 @@ export class HomePage {
   saveHeight(){
     this.healthData.saveHeight(this.height);
   }
-  // still a test, finish implementing
-  saveWorkout(){
-    this.healthData.saveWorkout();
-  }
 
   loadWorkoutData(){
-
-    // this will change! the query should not be made from here!
-    //this.workouts = this.healthData.loadWorkoutData();
-    //this.firabaseData.saveWorkoutArray(this.workouts);
-    this.firabaseData.offlineActivityPersistence();
+    this.healthData.loadWorkoutData();
   }
 
   newActivity(){
@@ -58,15 +50,22 @@ export class HomePage {
         }).present();
       }
     });
-    // not tested: in order to solve the first request not answering!
-  //this.workouts = this.healthData.loadWorkoutData();
+  }
+
+  ionViewDidLoad(){
+    //this.healthData.loadWorkoutData();
   }
 
   ionViewWillEnter(){
     this.firabaseData.offlineActivityPersistence();
   }
 
-  // take a better look!
+  ngOnInit(){
+    // not working.....
+    //this.healthData.loadWorkoutData();
+  }
+
+  // take a better look! this will not stay here
   logout(){
     this.authData.logout();
     this.navCtrl.setRoot("LoginPage");

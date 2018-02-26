@@ -26,15 +26,25 @@ export class HealthDataProvider {
   }
 
   loadWorkoutData_helper(){
-    this.health.query({
-      startDate: new Date(new Date().getTime() - 3 * 24 * 60 * 60 * 1000), // this will be a parameter
-      endDate: new Date(),
-      dataType: 'activity',
-    }).then(data => {
-      this.workouts = data;
-    }, err => {
-      console.log('No workout: ', err);
-      //this.workouts = err;
+
+    this.health.isAvailable().then((available:boolean) =>{
+      this.health.requestAuthorization([
+        'distance', 'activity', 'calories',
+      ])
+        .then(_ =>{
+          this.firabaseData.getLastLogin().then((date) =>
+          this.health.query({
+            startDate: date,
+            endDate: new Date(),
+            dataType: 'activity',
+          })
+            .then(data => {
+              this.workouts = data;
+            }, err => {
+            console.log('No workout: ', err);
+          })
+        )
+      })
     });
     return this.workouts;
   }
@@ -56,7 +66,7 @@ export class HealthDataProvider {
 
      for(let workout of workoutsIt){
        // let's filter out results we are not interested. ALSO workouts that are too short
-       if(workout.value != 'still' && workout.value != 'unknown' && (workout.endDate - workout.startDate > 8 * 60 * 1000)){
+       if(workout.value != 'still' && workout.value != 'unknown' && (workout.endDate - workout.startDate > 8 * 60 * 1000) && workout.sourceName != 'fitChallenge'){
          var workout_sup: Workout = {
            activityName: workout.value,
            startDate: workout.startDate.toString(),
@@ -72,23 +82,49 @@ export class HealthDataProvider {
          results.push(workout_sup);
        }
      }
-
+     // upload new data to firebase!
      this.firabaseData.saveWorkoutArray(results);
-     // this will change!!!!
-     return results;
    }
 
    // this should be called when saving a new activity!
-   // incomplete, need to implement saving the activity distance if "running or similar"..
-   saveWorkout(){
+   // INCOMPLETE!
+   saveWorkout(workout: Workout){
+
+      var start: Date = new Date(workout.startDate);
+      var end: Date = new Date(start.getTime() + workout.duration);
+
+   // this should work on Android only, testing is needed
      this.health.store({
-       startDate: new Date(new Date().getTime() - 15 * 60 * 1000), // change here!
-       endDate: new Date(),
+       startDate: start,
+       endDate: end,
        dataType: 'activity',
-       value: 'running',
+       value: workout.activityName,
        sourceName: 'fitChallenge',
        sourceBundleId: 'io.ionic.polimifitchallenge.starter'
      });
+
+     if(workout.distance){
+       this.health.store({
+         startDate: start,
+         endDate: end,
+         dataType: 'distance',
+         value: workout.distance.toString(),
+         sourceName: 'fitChallenge',
+         sourceBundleId: 'io.ionic.polimifitchallenge.starter'
+      });
+    }
+
+    if(workout.calories){
+      this.health.store({
+        startDate: start,
+        endDate: end,
+        dataType: 'calories',
+        value: workout.calories.toString(),
+        sourceName: 'fitChallenge',
+        sourceBundleId: 'io.ionic.polimifitchallenge.starter'
+     });
+   }
+
    }
 
   /* ***************************************************************************************************** */

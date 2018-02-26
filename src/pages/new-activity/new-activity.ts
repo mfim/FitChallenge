@@ -3,12 +3,6 @@ import { IonicPage, ViewController } from 'ionic-angular';
 import { Workout } from "../../models/workout";
 import { FirebaseDbProvider } from "../../providers/firebase-db/firebase-db";
 
-/**
- * Generated class for the NewActivityPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -30,8 +24,11 @@ export class NewActivityPage {
 
     // this will be changed to hours and mins...
     this.newWorkout.duration = this.newWorkout.duration * 60 * 1000;
-    this.newWorkout.distance = this.newWorkout.distance * 1000;
+    if(this.newWorkout.distance){
+      this.newWorkout.distance = this.newWorkout.distance * 1000;
+    }
 
+    //this.healthData.saveWorkout(this.newWorkout);
     //add a call to the health plugin
     this.firebaseData.saveWorkout(this.newWorkout);
 
