@@ -22,6 +22,9 @@ export class NewActivityPage {
 
   saveNewActivity(): void {
 
+    //to get the timestamps all in the same format
+    this.newWorkout.startDate = new Date(this.newWorkout.startDate).toString();
+
     // this will be changed to hours and mins...
     this.newWorkout.duration = this.newWorkout.duration * 60 * 1000;
     if(this.newWorkout.distance){

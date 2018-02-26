@@ -24,10 +24,10 @@ export class HomePage {
   saveHeight(){
     this.healthData.saveHeight(this.height);
   }
-
+/*
   loadWorkoutData(){
     this.healthData.loadWorkoutData();
-  }
+  }*/
 
   newActivity(){
     const newActivity = this.modalCtrl.create("NewActivityPage");
@@ -53,7 +53,7 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    //this.healthData.loadWorkoutData();
+    this.healthData.loadWorkoutData();
   }
 
   ionViewWillEnter(){

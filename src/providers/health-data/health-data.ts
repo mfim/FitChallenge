@@ -11,7 +11,6 @@ export class HealthDataProvider {
   workouts = {};
 
   constructor(private health: Health, private firabaseData: FirebaseDbProvider) {
-    this.requestAuth();
    }
 
   requestAuth(){
@@ -25,66 +24,59 @@ export class HealthDataProvider {
     .catch(e => console.log(e));
   }
 
-  loadWorkoutData_helper(){
+  loadWorkoutData(){
 
-    this.health.isAvailable().then((available:boolean) =>{
+    this.health.isAvailable().then((available:boolean) => {
       this.health.requestAuthorization([
         'distance', 'activity', 'calories',
-      ])
-        .then(_ =>{
-          this.firabaseData.getLastLogin().then((date) =>
+      ]).then(_ =>{
+        this.firabaseData.getLastLogin().then((date) => {
           this.health.query({
             startDate: date,
             endDate: new Date(),
             dataType: 'activity',
-          })
-            .then(data => {
-              this.workouts = data;
-            }, err => {
+          }).then(support => {
+            //this.workouts = data;
+            //console.log('data: ', data);
+            var results: Workout[] = [];
+
+            let workoutsIt = Object.keys(support).map(function(workoutIndex){
+              let workout = support[workoutIndex];
+              return workout;
+            });
+            console.log('workoutsIt', workoutsIt);
+            for(let workout of workoutsIt){
+              // let's filter out results we are not interested. ALSO workouts that are too short
+              if(workout.value != 'still' && workout.value != 'unknown' && (workout.endDate - workout.startDate > 8 * 60 * 1000) && workout.sourceName != 'fitChallenge'){
+                var workout_sup: Workout = {
+                  activityName: workout.value,
+                  startDate: workout.startDate.toString(),
+                  //endDate: workout.endDate,
+                  duration: (workout.endDate - workout.startDate), // in miliseconds
+                }
+                if(workout.calories.length > 0){
+                  workout_sup.calories = workout.calories[0].value;
+                }
+                if(workout.distance.length > 0){
+                    workout_sup.distance = workout.distance[0].value;
+                }
+                results.push(workout_sup);
+              }
+            }
+            // upload new data to firebase!
+            console.log('uploading... :', results);
+            this.firabaseData.saveWorkoutArray(results);
+
+          }, err => {
             console.log('No workout: ', err);
           })
-        )
+        })
       })
+    }, err => {
+      console.log("It's coming here.. returning not available! ", err);
     });
-    return this.workouts;
   }
 
-  // this will load the workout data from GoogleFit or Apple HealthKit
-  // return is made in an Workout array
-   loadWorkoutData(){
-     var workoutsIt = [];
-     var results: Workout[] = [];
-
-     // for some reason we need we cannot use directly this.workouts. if there is time, let's take a look to take this out!
-     var support = this.loadWorkoutData_helper();
-
-     // convert object to array
-     workoutsIt = Object.keys(support).map(function(workoutIndex){
-       let workout = support[workoutIndex];
-       return workout;
-     });
-
-     for(let workout of workoutsIt){
-       // let's filter out results we are not interested. ALSO workouts that are too short
-       if(workout.value != 'still' && workout.value != 'unknown' && (workout.endDate - workout.startDate > 8 * 60 * 1000) && workout.sourceName != 'fitChallenge'){
-         var workout_sup: Workout = {
-           activityName: workout.value,
-           startDate: workout.startDate.toString(),
-           //endDate: workout.endDate,
-           duration: (workout.endDate - workout.startDate), // in miliseconds
-         }
-         if(workout.calories.length > 0){
-           workout_sup.calories = workout.calories[0].value;
-         }
-         if(workout.distance.length > 0){
-             workout_sup.distance = workout.distance[0].value;
-         }
-         results.push(workout_sup);
-       }
-     }
-     // upload new data to firebase!
-     this.firabaseData.saveWorkoutArray(results);
-   }
 
    // this should be called when saving a new activity!
    // INCOMPLETE!
