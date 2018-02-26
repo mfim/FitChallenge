@@ -34,7 +34,7 @@
   </ion-item> -->
 
   <ion-list>
-    <ion-card *ngFor="let workout of workouts">
+    <ion-card *ngFor="let workout of this.firabaseData.workouts | async">
       <ion-card-header> {{ workout.activityName }}</ion-card-header>
       <ion-card-content>
         <p>Date: {{ workout.startDate | date:'shortDate' }}</p>

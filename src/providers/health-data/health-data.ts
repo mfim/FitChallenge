@@ -78,6 +78,7 @@ export class HealthDataProvider {
      return results;
    }
 
+   // this should be called when saving a new activity!
    // incomplete, need to implement saving the activity distance if "running or similar"..
    saveWorkout(){
      this.health.store({
@@ -104,6 +105,7 @@ export class HealthDataProvider {
         sourceBundleId: 'io.ionic.polimifitchallenge.starter'
       });
     }
+
     // also test function! delete it, not used
     loadHeightData(){
 

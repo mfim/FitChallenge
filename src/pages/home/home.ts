@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController,ToastController, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { AngularFireAuth } from 'angularfire2/auth'
-import { LoginPage } from "../login/login";
+import { AngularFireAuth } from 'angularfire2/auth';
 import { HealthDataProvider } from '../../providers/health-data/health-data';
 import { Workout } from "../../models/workout";
+import { FirebaseDbProvider } from "../../providers/firebase-db/firebase-db";
 
 
 @Component({
@@ -15,9 +15,9 @@ export class HomePage {
 
   currentHeight: string;
   height: string;
-  workouts: Workout[] = [];
+  //workouts: Workout[] = [];
 
-  constructor(private healthData: HealthDataProvider, private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController, private modalCtrl: ModalController) {
+  constructor(private healthData: HealthDataProvider, private authData: AuthProvider, private afAuth:AngularFireAuth, private toast: ToastController, public navCtrl: NavController, private modalCtrl: ModalController, private firabaseData: FirebaseDbProvider) {
   }
 
   // test function
@@ -32,7 +32,9 @@ export class HomePage {
   loadWorkoutData(){
 
     // this will change! the query should not be made from here!
-    this.workouts = this.healthData.loadWorkoutData();
+    //this.workouts = this.healthData.loadWorkoutData();
+    //this.firabaseData.saveWorkoutArray(this.workouts);
+    this.firabaseData.offlineActivityPersistence();
   }
 
   newActivity(){
@@ -57,13 +59,17 @@ export class HomePage {
       }
     });
     // not tested: in order to solve the first request not answering!
-    this.workouts = this.healthData.loadWorkoutData();
+  //this.workouts = this.healthData.loadWorkoutData();
+  }
+
+  ionViewWillEnter(){
+    this.firabaseData.offlineActivityPersistence();
   }
 
   // take a better look!
   logout(){
     this.authData.logout();
-    this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.setRoot("LoginPage");
   }
 
 }

@@ -17,7 +17,7 @@ import { FirebaseDbProvider } from "../../providers/firebase-db/firebase-db";
 })
 export class NewActivityPage {
 
-  newWorkout: Workout[] = [];
+  newWorkout = {} as Workout ;
 
   constructor(private view: ViewController, private firebaseData: FirebaseDbProvider) {
   }
@@ -28,6 +28,9 @@ export class NewActivityPage {
 
   saveNewActivity(): void {
 
+    // this will be changed to hours and mins...
+    this.newWorkout.duration = this.newWorkout.duration * 60 * 1000;
+    this.newWorkout.distance = this.newWorkout.distance * 1000;
 
     //add a call to the health plugin
     this.firebaseData.saveWorkout(this.newWorkout);

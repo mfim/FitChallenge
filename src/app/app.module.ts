@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MyApp } from './app.component';
 
@@ -14,13 +15,13 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthProvider } from '../providers/auth/auth';
 import { ResetPasswordPage } from "../pages/reset-password/reset-password";
 import { RegisterPage } from "../pages/register/register";
 import { MyGroupsPage } from "../pages/my-groups/my-groups";
 import { MyFriendsPage } from "../pages/my-friends/my-friends";
 
 import { Health } from '@ionic-native/health';
+import { AuthProvider } from '../providers/auth/auth';
 import { HealthDataProvider } from '../providers/health-data/health-data';
 import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
 
@@ -38,7 +39,8 @@ import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence() // offline persistence
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +59,6 @@ import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
     AuthProvider,
     Health,
     HealthDataProvider,
-    FirebaseDbProvider,
     FirebaseDbProvider
   ]
 })
