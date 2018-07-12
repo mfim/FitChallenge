@@ -19,13 +19,10 @@ export class NewActivityPage {
 
   newWorkout = {} as Workout ;
 
-  constructor(private view: ViewController, private firebaseData: FirebaseDbProvider) {
+  constructor(private viewCtrl: ViewController, private firebaseData: FirebaseDbProvider) {
   }
 
-  cancelNewActivity(){
-    this.view.dismiss();
-  }
-
+  
   saveNewActivity(): void {
 
     // this will be changed to hours and mins...
@@ -35,7 +32,7 @@ export class NewActivityPage {
     //add a call to the health plugin
     this.firebaseData.saveWorkout(this.newWorkout);
 
-    this.view.dismiss();
+    this.viewCtrl.dismiss();
   }
 
 }

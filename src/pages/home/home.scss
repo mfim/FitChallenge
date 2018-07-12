@@ -1,3 +1,10 @@
-page-home {
-
-}
+  .md,
+  .ios,
+  .wp {
+   page-home {
+     ion-header {
+          height: 40px;//by default 56px
+      }
+   }
+  }
+ 
