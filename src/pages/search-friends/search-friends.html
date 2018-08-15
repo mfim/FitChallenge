@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title center>Search friends</ion-title>
+      <ion-buttons left>
+          <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-searchbar [(ngModel)]="query" (ionChange)="searchUser(query)"></ion-searchbar>
+
+    <ion-list *ngIf="profileList?.length > 0">
+      <ion-item *ngFor="let profile of profileList" (click)="selectProfile(profile)" >
+        <ion-avatar item-left>
+          <img src="assets/imgs/avatar.png" alt="Avatar">
+        </ion-avatar>
+        <h2>{{profile.firstName}} {{profile.lastName}}</h2>
+        <h3>{{profile.email}}</h3>
+      </ion-item>
+
+
+    </ion-list>
+    
+
+  </ion-content>
+  

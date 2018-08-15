@@ -1,3 +1,9 @@
-page-my-friends {
-
+.md,
+.ios,
+.wp {
+  page-my-friends {
+   ion-header {
+        height: 40px;//by default 56px
+    }
+ }
 }

@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+//import { AngularFireObject  } from "angularfire2/database";
 import { Workout } from "../../models/workout";
 import { Observable } from "rxjs/Observable";
+import { Challenge } from '../../models/challenge';
+import { User } from '../../models/profile';
 
 @Injectable()
 export class FirebaseDbProvider {
 
   workoutsCollection: AngularFirestoreCollection<Workout>; //Firestore collection
   public workouts: Observable<Workout[]>; // read Collection
+  challengesFriendsCollection: AngularFirestoreCollection<Challenge>; //Firestore collection
+  public challengesFriends: Observable<Challenge[]>; // read Collection
+  challengesCollection: AngularFirestoreCollection<Challenge>; //Firestore collection
+  public challenges: Observable<Challenge[]>; // read Collection
 
 
   constructor(private authData: AuthProvider, private firestoreDb: AngularFirestore) {
 
   }
 
-  saveWorkout(workout: Workout){
 
+  saveWorkout(workout: Workout) {
     //const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid());
     //activityRef.child("workouts").push(workout);
     this.firestoreDb.collection(`/userProfile/`+this.authData.getUid()+`/workouts/`).doc(workout.startDate).set(workout);
   }
 
-  saveWorkoutArray(workouts: Workout[]){
+  saveWorkoutArray(workouts: Workout[]) {
     //const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid()+`/workouts/`);
 
     for(let workout of workouts){
@@ -37,9 +44,8 @@ export class FirebaseDbProvider {
 
   }
   // we wanna dislpay the user's workouts when his online and also offline.
-  offlineActivityPersistence(){
-
-    this.workoutsCollection = this.firestoreDb.collection(`/userProfile/`+this.authData.getUid()+`/workouts/`);
+  offlineActivityPersistence() {
+    this.workoutsCollection = this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/workouts/`);
     this.workouts = this.workoutsCollection.valueChanges();
   }
 
@@ -54,7 +60,16 @@ export class FirebaseDbProvider {
       }
     });
   }
+  //Save a new challenge
+  /*saveChallenge(challenge: Challenge){
+    this.firestoreDb.collection(`/challenges/`+this.authData.getUid()+`/workouts/`).add(challenge);
+  }*/
+  saveChallenge(challenge: Challenge) {
+    this.firestoreDb.collection(`/challenges/`).add(challenge);
+      //.then(function (docRef) {
+      //  this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/challenges/`).add(docRef.id);
+      //})
+  }
+  // next function is the persistent tier... and the list
+
 }
-
-
-// REMOVE ANGULARFIRE2-OFFLIN"!!!!!!

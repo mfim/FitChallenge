@@ -1,15 +1,18 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, PopoverCmp } from 'ionic-angular';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-//import { LoginPage } from '../pages/login/login';
+import { EditProfileFormPage } from '../pages/edit-profile-form/edit-profile-form';
+
+import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 
@@ -24,6 +27,14 @@ import { Health } from '@ionic-native/health';
 import { AuthProvider } from '../providers/auth/auth';
 import { HealthDataProvider } from '../providers/health-data/health-data';
 import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
+import { PopoverPage } from '../pages/popover/popover';
+import { DataService } from '../providers/data/data.service';
+import { ProfilePage } from '../pages/profile/profile';
+import { SearchFriendsPage } from '../pages/search-friends/search-friends';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { ProfileViewPage } from '../pages/profile-view/profile-view';
+
+
 
 @NgModule({
   declarations: [
@@ -33,14 +44,21 @@ import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
     ResetPasswordPage,
     RegisterPage,
     MyGroupsPage,
-    MyFriendsPage
+    MyFriendsPage,
+    PopoverPage,
+    EditProfileFormPage,
+    ProfilePage,
+    ProfileViewPage
+    
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
-    AngularFirestoreModule.enablePersistence() // offline persistence
+    AngularFirestoreModule.enablePersistence(), // offline persistence
+    AngularFireDatabaseModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,7 +68,11 @@ import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
     ResetPasswordPage,
     RegisterPage,
     MyGroupsPage,
-    MyFriendsPage
+    MyFriendsPage,
+    PopoverPage,
+    EditProfileFormPage,
+    ProfilePage,
+    ProfileViewPage    
   ],
   providers: [
     StatusBar,
@@ -59,7 +81,9 @@ import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
     AuthProvider,
     Health,
     HealthDataProvider,
-    FirebaseDbProvider
+    FirebaseDbProvider,
+    NativePageTransitions,
+    DataService    
   ]
 })
 export class AppModule {}

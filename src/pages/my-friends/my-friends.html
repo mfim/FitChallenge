@@ -1,18 +1,55 @@
-<!--
-  Generated template for the MyFriendsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>MyFriends</ion-title>
+<ion-header no-border>
+    <ion-navbar color="primary">
+      <!--<ion-title text-center>Friends</ion-title>-->
+      <ion-buttons end>
+       <button ion-button icon-only (click)="presentPopover($event)">
+          <ion-icon name="more"></ion-icon>
+      </button>
+      </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-
+    
 <ion-content padding>
-
+      <div class="main-content" (swipe)="swipe($event)">  
+  <ion-fab bottom right>
+        <button ion-fab icon-only mini (click)="searchFriends()"><ion-icon name="man"></ion-icon></button>
+</ion-fab>
+<div *ngIf="myrequests">
+<ion-list no-lines>
+    <ion-list-header>
+      Requests
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let item of myrequests">
+      <ion-item>
+      <ion-avatar item-left>
+        <img src="">
+      </ion-avatar>
+      <h4>{{item.firstName}} {{item.lastName}}</h4>
+      <h5>{{item.email}}</h5>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="secondary" (click)="accept(item)">
+          <ion-icon name="checkmark"></ion-icon>
+          Add
+        </button>
+        <button ion-button color="danger" (click)="ignore(item)">
+          <ion-icon name="trash"></ion-icon>
+          Refuse
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+       
+    <ion-list-header>
+      Friends
+    </ion-list-header>
+    <ion-item *ngFor="let item of myfriends" (click)="selectProfile(item)">    
+            <ion-avatar item-left>
+        <img src="">
+      </ion-avatar>
+      <h4>{{item.firstName}} {{item.lastName}}</h4>
+      <h5>{{item.email}}</h5>
+      </ion-item>
+</ion-list>
+</div>
+</div>
 </ion-content>

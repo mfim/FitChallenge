@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{selectedProfile.firstName}} {{selectedProfile.lastName}} 
+    <button ion-button color="dark" clear item-end icon-left (click)="sendRequest(selectedProfile)">
+      <ion-icon name="add"></ion-icon>
+      Add</button>
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center>
+<div class="profile-view__image-container">
+  <img class="profile-view__image" src="assets/imgs/profile-placeholder.png" alt="">
+</div>
+  <ion-card>
+    <ion-card-content>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input [value]="selectedProfile.email" [readonly]="true"></ion-input>
+          </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input [value]="selectedProfile.firstName" [readonly]="true"></ion-input>
+      </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+        <ion-item>
+          <ion-label floating>Last Name</ion-label>
+          <ion-input [value]="selectedProfile.lastName" [readonly]="true"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-card-content>
+          <ion-item>
+            <ion-label floating>Date of Birth</ion-label>
+            <ion-input [value]="selectedProfile.dateOfBirth" [readonly]="true"></ion-input>
+          </ion-item>
+        </ion-card-content>
+  </ion-card>
+</ion-content>

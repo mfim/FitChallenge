@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Profile</ion-title>
+    
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content text-center>
+<div *ngIf="userProfile">
+  <ion-card>
+    <ion-card-content>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input [value]="userProfile.email" type="text" [(ngModel)]="profile.email"></ion-input>
+          </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input [value]="userProfile.firstName" type="text" [(ngModel)]="profile.firstName"></ion-input>
+      </ion-item>
+    </ion-card-content>
+    <ion-card-content>
+        <ion-item>
+          <ion-label floating>Last Name</ion-label>
+          <ion-input [value]="userProfile.lastName" type="text" [(ngModel)]="profile.lastName"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-card-content>
+          <ion-item>
+            <ion-label floating>Date of Birth</ion-label>
+            <ion-input [value]="userProfile.dateOfBirth" type="text" [(ngModel)]="profile.dateOfBirth"></ion-input>
+          </ion-item>
+        </ion-card-content>
+  </ion-card>
+</div>
+<button ion-button (click)="updateProfile()">Save</button>
+</ion-content>

@@ -1,41 +1,31 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Activity</ion-title>
-  </ion-navbar>
+<ion-header no-border>
+  <ion-navbar color="primary" >
+          <ion-title>
+        <!--<img width="75" height="30" src="assets/imgs/title.png"  alt="" class=""> -->
+      </ion-title>
+
+
+
+    <ion-buttons end>
+     <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+    </button>
+
+    </ion-buttons>
+</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<!--
-  <ion-refresher (ionRefresh)="loadWorkoutData($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingText="Checking fitness Apps"></ion-refresher-content>
+<ion-fab bottom right>
+        <button ion-fab icon-only mini (click)="newActivity()"><ion-icon name="walk"></ion-icon></button>
+</ion-fab>
+  <ion-refresher (ionRefresh)="doRefresh($event)" (swipe)="swipe($event)">
+    <ion-refresher-content >
+
+    </ion-refresher-content>
   </ion-refresher>
--->
-  <ion-fab top right>
-    <button ion-fab icon-only mini><ion-icon name="add-circle"></ion-icon></button>
-    <ion-fab-list side="down">
-      <button ion-fab (click)="newActivity()"><ion-icon name="body"></ion-icon></button>
-      <button ion-fab (click)="inviteActivity()"><ion-icon name="contacts"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
 
-<!--  <button ion-button (click)="loadWorkoutData()">Load Workouts</button> -->
-
-<!--  <button ion-button (click)="saveWorkout()">Health</button>
-  <button ion-button (click)="saveHeight()">Height</button>
-
-<ion-item>
-    <ion-label stacked>Set Height</ion-label>
-    <ion-input type="text" [(ngModel)]="height" placeholder="My height today"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Current Height</ion-label>
-    <ion-input type="text" [(ngModel)]="currentHeight" readonly></ion-input>
-  </ion-item> -->
-
-  <!-- <ion-item>
-    <ion-label stacked>Steps last 24h</ion-label>
-    <ion-input type="text" [(ngModel)]="healthData.stepCount" readonly></ion-input>
-  </ion-item> -->
+  <div class="main-content" (swipe)="swipe($event)">
 
   <ion-list>
     <ion-card *ngFor="let workout of this.firabaseData.workouts | async">
@@ -51,44 +41,8 @@
         </p>
       </ion-card-content>
     </ion-card>
+
   </ion-list>
 
-  <ion-card>
-    <img src="../assets/imgs/run.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-        Running - 15/02
-      </ion-card-title>
-      <p>
-        12.3 Km <br>
-        1h 23 min
-      </p>
-    </ion-card-content>
-  </ion-card>
-    <ion-card>
-      <img src="../assets/imgs/spinning.jpeg"/>
-      <ion-card-content>
-        <ion-card-title>
-          Spinning - 14/02
-        </ion-card-title>
-        <p>
-          1h session <br>
-        </p>
-      </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <img src="../assets/imgs/fitboxe.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-        Fit Boxe - 10/02
-      </ion-card-title>
-      <p>
-        1h 30 min session <br>
-      </p>
-    </ion-card-content>
-</ion-card>
-
-
-  <button ion-button (click)="logout()">Logout</button>
+ </div>
 </ion-content>

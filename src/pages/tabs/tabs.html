@@ -1,5 +1,11 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Activity" tabIcon="walk"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Groups" tabIcon="pulse"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Friends" tabIcon="contacts"></ion-tab>
+<ion-tabs  tabsPlacement="top" color="primary" toolbarColor="light" indicatorColor="light">
+  <ion-tab [root]="tab1Root" tabIcon="body" tabTitle="Activities"></ion-tab>
+  <ion-tab [root]="tab2Root" tabIcon="flame" tabTitle="Challenges"></ion-tab>
+  <ion-tab [root]="tab3Root" tabIcon="people" tabTitle="Friends"></ion-tab>
 </ion-tabs>
+<!--
+  (ionChange)="transition($event)"
+  tabTitle="Activities"
+  tabTitle="Challenges"
+  tabTitle="Friends"
+-->
