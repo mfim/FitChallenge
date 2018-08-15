@@ -24,6 +24,7 @@ export class HomePage {
   saveHeight(){
     this.healthData.saveHeight(this.height);
   }
+
 /*
   loadWorkoutData(){
     this.healthData.loadWorkoutData();
@@ -53,6 +54,12 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
+  /*
+    var worker = new Worker( '../../providers/health-data/health-data.ts');
+    worker.postMessage({
+      'cmd': 'loadWorkoutData',
+    });
+*/
     this.healthData.loadWorkoutData();
   }
 

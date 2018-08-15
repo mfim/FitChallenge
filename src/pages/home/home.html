@@ -5,7 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-
+<!--
+  <ion-refresher (ionRefresh)="loadWorkoutData($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingText="Checking fitness Apps"></ion-refresher-content>
+  </ion-refresher>
+-->
   <ion-fab top right>
     <button ion-fab icon-only mini><ion-icon name="add-circle"></ion-icon></button>
     <ion-fab-list side="down">
