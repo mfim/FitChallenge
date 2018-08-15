@@ -1,17 +1,11 @@
-<!--
-  Generated template for the NewActivityPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
     <ion-title>Add a new challenge!</ion-title>
     <ion-buttons left>
-        <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">
-            <ion-icon name="arrow-back"></ion-icon>
-        </button>
+      <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -19,29 +13,28 @@
 
 
 <ion-content padding>
-    <ion-item>
-      <ion-label color="primary">Activity</ion-label>
-      <ion-select [(ngModel)]="newChallenge.activityName" interface="popover">
-        <ion-option value="running">Running</ion-option>
-        <ion-option value="cycling">Cycling</ion-option>
-        <ion-option value="boxing">Boxing</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-        <ion-label color="primary">Activity</ion-label>
-        <ion-select [(ngModel)]="newChallenge.startDate" interface="popover">
-          <ion-option value="running">Running</ion-option>
-          <ion-option value="cycling">Cycling</ion-option>
-          <ion-option value="boxing">Boxing</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <ion-label color="primary">Start date</ion-label>
-          <ion-input  interface="popover" type="text" [(ngModel)]="newChallenge.startDate"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label color="primary">Goal</ion-label>
-          <ion-input  interface="popover" type="text" [(ngModel)]="newChallenge.goal"></ion-input>
-      </ion-item>
-      <!--Colocar aqui uma search bar para -->
-  </ion-content>  
+  <ion-item>
+    <ion-label color="primary">Activity</ion-label>
+    <ion-select [(ngModel)]="newChallenge.activityName" interface="popover">
+      <ion-option value="running">Running</ion-option>
+      <ion-option value="cycling">Cycling</ion-option>
+      <ion-option value="boxing">Boxing</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Prize</ion-label>
+    <ion-input interface="popover" type="text" [(ngModel)]="newChallenge.prize"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Friends</ion-label>
+    <ion-select [(ngModel)]="newChallenge.competitors" interface="popover" multiple="true" okText="Let´s do it!" cancelText="Nah!">
+            <ion-option *ngFor="let item of myfriends" value="{{item.id}}">
+        <h4>{{item.firstName}} {{item.lastName}}</h4>
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-buttons>
+
+    <button ion-button (click)="saveNewChallenge()">Save</button>
+  </ion-buttons>
+</ion-content>

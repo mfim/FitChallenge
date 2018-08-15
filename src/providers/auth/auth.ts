@@ -7,50 +7,53 @@ import { User } from "../../models/profile";
 @Injectable()
 export class AuthProvider {
 
-   private uid: string;
-   firedata = firebase.database().ref('/userProfile');
-    
-    constructor(public afAuth: AngularFireAuth, ){
+  private uid: string;
+  firedata = firebase.database().ref('/userProfile');
+
+  constructor(public afAuth: AngularFireAuth, ) {
   }
 
-  async login(user: User){
+  async login(user: User) {
     return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
   }
 
-  async resetPassword(email: string){
+  async resetPassword(email: string) {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  googleLogin(){
+  googleLogin() {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  facebookLogin(){
+  facebookLogin() {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
 
-  async register(user: User){
+  async register(user: User) {
     return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
   }
-  async saveProfile(user: User){
+  
+  async saveProfile(user: User) {
     //return this.afAuth.auth.
   }
+
   setUid(uid: string): void {
-   this.uid = uid;
+    this.uid = uid;
   }
 
   getUid(): string {
     return this.uid;
   }
-  
-  
+
+
   getAuthenticatedUser() {
     return this.afAuth.authState;
   }
 
-  logout(){
+  logout() {
     this.afAuth.auth.signOut();
   }
+
   getallusers() {
     var promise = new Promise((resolve, reject) => {
       this.firedata.orderByChild('uid').once('value', (snapshot) => {

@@ -12,38 +12,52 @@ export class FirebaseDbProvider {
 
   workoutsCollection: AngularFirestoreCollection<Workout>; //Firestore collection
   public workouts: Observable<Workout[]>; // read Collection
-    
-  constructor(private authData: AuthProvider, private firestoreDb: AngularFirestore) {}
- 
 
-  saveWorkout(workout: Workout){
+
+  challengesCollection: AngularFirestoreCollection<Challenge>; //Firestore collection
+  public challenges: Observable<Challenge[]>; // read Collection
+
+
+  challengesFriendsCollection: AngularFirestoreCollection<Challenge>; //Firestore collection
+  public challengesFriends: Observable<Challenge[]>; // read Collection
+  constructor(private authData: AuthProvider, private firestoreDb: AngularFirestore) { }
+
+  saveWorkout(workout: Workout) {
     //const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid());
     //activityRef.child("workouts").push(workout);
-    this.firestoreDb.collection(`/userProfile/`+this.authData.getUid()+`/workouts/`).add(workout);
+    this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/workouts/`).add(workout);
   }
 
-  saveWorkoutArray(workouts: Workout[]){
+  saveWorkoutArray(workouts: Workout[]) {
     //const activityRef: firebase.database.Reference = firebase.database().ref(`/userProfile/`+this.authData.getUid()+`/workouts/`);
-    for(let workout of workouts){
-      this.firestoreDb.collection(`/userProfile/`+this.authData.getUid()+`/workouts/`).add(workout);
+    for (let workout of workouts) {
+      this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/workouts/`).add(workout);
       //activityRef.push(workout);
     }
   }
 
   // we wanna dislpay the user's workouts when his online and also offline.
-  offlineActivityPersistence(){
-    this.workoutsCollection = this.firestoreDb.collection(`/userProfile/`+this.authData.getUid()+`/workouts/`);
+  offlineActivityPersistence() {
+    this.workoutsCollection = this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/workouts/`);
     this.workouts = this.workoutsCollection.valueChanges();
 
+    this.challengesCollection = this.firestoreDb.collection(`/challenges/` + this.authData.getUid() + `/workouts/`);
+    this.challenges = this.challengesCollection.valueChanges();
+
+    //this.challengesFriendsCollection = this.firestoreDb.collection(`/challenges/`+this.authData.getUid()+`/workouts/`);
+    //this.challenges = this.challengesCollection.valueChanges();
   }
 
   //Save a new challenge
-  saveChallenge(challenge: Challenge){
+  /*saveChallenge(challenge: Challenge){
     this.firestoreDb.collection(`/challenges/`+this.authData.getUid()+`/workouts/`).add(challenge);
+  }*/
+  saveChallenge(challenge: Challenge) {
+    this.firestoreDb.collection(`/challenges/`).add(challenge);
+      //.then(function (docRef) {
+      //  this.firestoreDb.collection(`/userProfile/` + this.authData.getUid() + `/challenges/`).add(docRef.id);
+      //})
   }
   // next function is the persistent tier... and the list
 
 }
-
-
-// REMOVE ANGULARFIRE2-OFFLIN"!!!!!!

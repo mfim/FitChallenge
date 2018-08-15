@@ -1,5 +1,5 @@
-import { Component, Output ,EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController ,Events, AlertController, ViewController} from 'ionic-angular';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, Events, AlertController, ViewController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { PopoverController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
@@ -12,7 +12,7 @@ import { ProfileViewPage } from '../profile-view/profile-view';
   selector: 'page-my-friends',
   templateUrl: 'my-friends.html',
 })
-export class MyFriendsPage{   
+export class MyFriendsPage {
   userProfile: Profile;
   userid;
   newrequest = {} as Request;
@@ -23,10 +23,10 @@ export class MyFriendsPage{
 
   @Output() selectedProfile: EventEmitter<Profile>
 
-  constructor(private modalCtrl: ModalController,public popoverCtrl: PopoverController,
+  constructor(private modalCtrl: ModalController, public popoverCtrl: PopoverController,
     public navCtrl: NavController, public navParams: NavParams, public data: DataService,
-    public events: Events, public alertCtrl: AlertController,public viewCtrl: ViewController){
-      this.selectedProfile = new EventEmitter<Profile>();
+    public events: Events, public alertCtrl: AlertController, public viewCtrl: ViewController) {
+    this.selectedProfile = new EventEmitter<Profile>();
   }
 
   presentPopover(myEvent) {
@@ -35,18 +35,18 @@ export class MyFriendsPage{
       ev: myEvent
     });
   }
-  
+
   swipe(event) {
-    if(event.direction === 4) {
+    if (event.direction === 4) {
       this.navCtrl.parent.select(1);
     }
   }
-  
-  searchFriends(){
+
+  searchFriends() {
     const searchFriends = this.modalCtrl.create("SearchFriendsPage");
     searchFriends.present();
   }
-  
+
   ionViewWillEnter() {
     this.data.getRequests();
     this.data.getFriends();
@@ -54,18 +54,18 @@ export class MyFriendsPage{
     this.events.subscribe('gotrequests', () => {
       this.myrequests = [];
       this.myrequests = this.data.userdetails;
-      
+
     })
     this.events.subscribe('friends', () => {
       this.myfriends = [];
-      this.myfriends = this.data.myfriends; 
+      this.myfriends = this.data.myfriends;
     })
-    
+
   }
   accept(item) {
-    
+
     this.data.acceptRequest(item).then(() => {
-      
+
       let newalert = this.alertCtrl.create({
         title: 'Friend added',
         subTitle: 'Tap on the friend to see what he is doing',
@@ -87,7 +87,8 @@ export class MyFriendsPage{
     this.events.unsubscribe('gotrequests');
     this.events.unsubscribe('friends');
   }
-  selectProfile(profile: Profile){
+  
+  selectProfile(profile: Profile) {
     this.selectedProfile.emit(profile);
     this.navCtrl.push(ProfileViewPage, { profile });
     this.viewCtrl.dismiss();
@@ -100,5 +101,4 @@ export class MyFriendsPage{
       refresher.complete();
     }, 2000);
   }
-
 }
