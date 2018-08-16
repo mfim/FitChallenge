@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "405851594318",
+    "firebase_url": "https://fitchallenge-bc762.firebaseio.com",
+    "project_id": "fitchallenge-bc762",
+    "storage_bucket": "fitchallenge-bc762.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405851594318:android:04dc4dd97be92bbc",
+        "android_client_info": {
+          "package_name": "io.ionic.polimifitchallenge.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405851594318-b5llk5o538q3t8h1g98movj4hvgcm4ot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.polimifitchallenge.starter",
+            "certificate_hash": "bdbb2f935ce46de791c7cec7a1ad5331f3af9ee8"
+          }
+        },
+        {
+          "client_id": "405851594318-mv1gc1ji2j3q1s51h8ijjkv2nh7ctubg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMqCE0mElh4bt8m-TJenCL6Met4oD4a6c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405851594318-mv1gc1ji2j3q1s51h8ijjkv2nh7ctubg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "405851594318-km1v80ng2obuc17l1g43i8e9kd7trohg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.ionic.polimifitchallenge.starter"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

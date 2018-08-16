@@ -33,6 +33,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { SearchFriendsPage } from '../pages/search-friends/search-friends';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { ProfileViewPage } from '../pages/profile-view/profile-view';
+import { Firebase } from '@ionic-native/firebase';
+import { FcmProvider } from '../providers/fcm/fcm';
 
 
 
@@ -49,7 +51,7 @@ import { ProfileViewPage } from '../pages/profile-view/profile-view';
     EditProfileFormPage,
     ProfilePage,
     ProfileViewPage
-    
+
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,7 @@ import { ProfileViewPage } from '../pages/profile-view/profile-view';
     PopoverPage,
     EditProfileFormPage,
     ProfilePage,
-    ProfileViewPage    
+    ProfileViewPage
   ],
   providers: [
     StatusBar,
@@ -83,7 +85,8 @@ import { ProfileViewPage } from '../pages/profile-view/profile-view';
     HealthDataProvider,
     FirebaseDbProvider,
     NativePageTransitions,
-    DataService    
+    DataService,
+    FcmProvider
   ]
 })
 export class AppModule {}

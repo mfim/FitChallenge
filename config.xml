@@ -95,6 +95,7 @@
         <variable name="HEALTH_WRITE_PERMISSION" value="App needs write access" />
     </plugin>
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
+    <plugin name="cordova-plugin-firebase" spec="^1.0.5" />
     <engine name="ios" spec="~4.5.4" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
